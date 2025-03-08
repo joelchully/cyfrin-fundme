@@ -54,10 +54,18 @@ contract FundMe {
 
     //function Modifiers in Solidity
     modifier onlyOwner() {
-        require(msg.sender == owner, "You are not the owner");
+        require(msg.sender == i_owner, "You are not the owner");
         //This means that wherever the modifier is used 
         //it should first check the 'require' condition and then execute the remaining peice of code
         _;
+    }
+
+    //What happens if someone sends this contract ETH without calling fund() 
+    receive() external payable {
+        fund();
+    }
+    fallback() external payable { 
+        fund();
     }
 }
 
